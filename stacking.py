@@ -1,16 +1,12 @@
 import streamlit as st
 import pandas as pd
 import joblib
-from tensorflow.keras.models import load_model
 
 # ======================
-# Load Saved Models & Scalers
+# Load Saved Model & Scaler
 # ======================
-stacking_model = joblib.load("stroke_model1.pkl")
-stacking_scaler = joblib.load("scaler2.pkl")
-
-ann_model = load_model("dlmodel.h5")
-ann_scaler = joblib.load("dlscaler.pkl")
+model = joblib.load("stroke_model1.pkl")
+scaler = joblib.load("scaler2.pkl")
 
 # ======================
 # Streamlit Page Config
@@ -115,7 +111,7 @@ Use realistic values for accurate prediction.
 # Main UI
 # ======================
 st.title("Heart Stroke Risk Prediction")
-st.markdown("Enter the patient details below to assess **stroke risk** using the trained ML models.")
+st.markdown("Enter the patient details below to assess **stroke risk** using the trained ML model.")
 
 # Input Form
 with st.form("stroke_form"):
@@ -155,39 +151,17 @@ if submitted:
     }
 
     input_df = pd.DataFrame([input_dict])
+    input_scaled = scaler.transform(input_df)
 
-    # ====== Stacking Model Prediction ======
-    stacking_scaled = stacking_scaler.transform(input_df)
-    stacking_pred = stacking_model.predict(stacking_scaled)[0]
-    stacking_prob = stacking_model.predict_proba(stacking_scaled)[0][1]
+    # Prediction
+    prediction = model.predict(input_scaled)[0]
+    prob = model.predict_proba(input_scaled)[0][1]
 
-    # ====== ANN Model Prediction ======
-    ann_scaled = ann_scaler.transform(input_df)
-    ann_prob = ann_model.predict(ann_scaled)[0][0]  # Assuming binary classification with sigmoid
-    ann_pred = 1 if ann_prob >= 0.5 else 0
-
-    # ====== Display Comparison ======
     st.markdown("---")
-    st.subheader("🩺 Prediction Comparison")
+    st.subheader("🩺 Prediction Result")
 
-    col1, col2 = st.columns(2)
-
-    with col1:
-        st.markdown("**Stacking Model:**")
-        if stacking_pred == 1:
-            st.error(f"⚠️ High Risk of Stroke (Probability: {stacking_prob:.2f})")
-        else:
-            st.success(f"✅ Low Risk of Stroke (Probability: {stacking_prob:.2f})")
-
-    with col2:
-        st.markdown("**ANN Model:**")
-        if ann_pred == 1:
-            st.error(f"⚠️ High Risk of Stroke (Probability: {ann_prob:.2f})")
-        else:
-            st.success(f"✅ Low Risk of Stroke (Probability: {ann_prob:.2f})")
-
-    # Optional: Agreement info
-    if stacking_pred == ann_pred:
-        st.info("✅ Both models agree on the prediction.")
+    if prediction == 1:
+        st.error(f"⚠️ High Risk of Stroke Detected! (Probability: **{prob:.2f}**) ")
     else:
-        st.warning("⚠️ Models disagree. Consider closer evaluation of risk factors.")
+        st.success(f"✅ Low Risk of Stroke (Probability: **{prob:.2f}**)")
+
