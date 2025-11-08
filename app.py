@@ -6,11 +6,11 @@ from tensorflow.keras.models import load_model
 # ======================
 # Load Saved Models & Scalers
 # ======================
-stacking_model = joblib.load("stroke_model1.pkl")
-stacking_scaler = joblib.load("scaler2.pkl")
+stacking_model = joblib.load("models/updated_stacked_model.pkl")
+stacking_scaler = joblib.load("models/update_stacked_scalar.pkl")
 
-ann_model = load_model("dlmodel.h5")
-ann_scaler = joblib.load("dlscaler.pkl")
+ann_model = load_model("models/deeplearning.h5")
+ann_scaler = joblib.load("models/deeplearningscalar.pkl")
 
 # ======================
 # Streamlit Page Config
@@ -107,7 +107,7 @@ st.sidebar.markdown("""
 st.sidebar.markdown("""
 ---
 💡 **Tip:**  
-Higher glucose or BMI values increase stroke risk.  
+Having past records of Heart Diseases can increase the possibilty of Stroke.  
 Use realistic values for accurate prediction.
 """)
 
