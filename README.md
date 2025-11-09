@@ -5,7 +5,7 @@ This repository implements the research paper:
 by Subasish Mohapatra et al., *EAI Endorsed Transactions on Pervasive Health and Technology*, 2023.  
 
 The project uses **machine learning models** and a **stacking ensemble** to predict the risk of stroke in patients based on medical attributes.  
-It also provides an **interactive Streamlit dashboard** with **SHAP & LIME explanations** for interpretability.
+It also provides an **interactive Streamlit dashboard**.
 
 
 ---
