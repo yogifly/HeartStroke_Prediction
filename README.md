@@ -17,16 +17,15 @@ Early prediction of stroke risk can help in **timely intervention and treatment*
 This project:
 - Trains multiple **ML algorithms** (Logistic Regression, Random Forest, Gradient Boosting, etc.)
 - Uses a **Stacking Ensemble model** to improve accuracy
-- Achieves up to **97.67% accuracy** (Gradient Boosting)
+- Achieves up to **80.67% accuracy** (Gradient Boosting)
 - Deploys a **Streamlit web app** for real-time predictions
-- Adds **Explainability** with **SHAP & LIME** to show which factors contributed most to predictions
 
 ---
 
 ## 📊 Dataset
 We used the **[Stroke Prediction Dataset](https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset)** from Kaggle.
 
-- **Rows**: ~5,000 patient records  
+- **Rows**: ~25,000 patient records  
 - **Features**:
   - Gender
   - Age
@@ -64,7 +63,6 @@ We used the **[Stroke Prediction Dataset](https://www.kaggle.com/datasets/fedeso
 
 5. **Deployment**
    - Streamlit dashboard for predictions
-   - Added SHAP & LIME explanations
 
 ---
 
@@ -72,7 +70,6 @@ We used the **[Stroke Prediction Dataset](https://www.kaggle.com/datasets/fedeso
 - Real-time **stroke risk prediction**
 - **Probability score** for predictions
 - **Interactive dashboard** with input sliders
-- **Explainability with SHAP & LIME**
 - Model performance metrics
 - Confusion matrix & feature importance plots
 
